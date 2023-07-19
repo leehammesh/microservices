@@ -49,21 +49,21 @@ pipeline {
                         }
                     },
                     'python app': {
-                        script{
+                        script {
                             dir('wishlist-microservice-python') {
-                                def scannerHome = tool 'sonarscanner4';
+                                def scannerHome = tool 'sonarscanner4'
                                 withSonarQubeEnv('sonar-pro') {
                                     sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonarscanner4/bin/sonar-scanner \
-                                    -D sonar.projectVersion=1.0-SNAPSHOT \
-                                    -D sonar.sources=. \
-                                    -D sonar.login=admin \
-                                    -D sonar.password=admin123 \
-                                    -D sonar.projectKey=project \
-                                    -D sonar.projectName=wishlist-py \
-                                    -D sonar.inclusions=index.py \
-                                    -D sonar.sourceEncoding=UTF-8 \
-                                    -D sonar.language=python \
-                                    -D sonar.host.url=http:http://43.204.101.12:9000/"""
+                                        -D sonar.projectVersion=1.0-SNAPSHOT \
+                                        -D sonar.sources=. \
+                                        -D sonar.login=admin \
+                                        -D sonar.password=admin123 \
+                                        -D sonar.projectKey=project \
+                                        -D sonar.projectName=wishlist-py \
+                                        -D sonar.inclusions=index.py \
+                                        -D sonar.sourceEncoding=UTF-8 \
+                                        -D sonar.language=python \
+                                        -D sonar.host.url=http://43.204.101.12:9000/"""
                                 }
                             }
                         }
@@ -76,7 +76,7 @@ pipeline {
                 parallel (
                     'docker login': {
                         withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
-                            sh "docker login -u comdevops -p ${dockerPassword}"
+                            sh "docker login -u leehammesh -p ${dockerPassword}"
                         }
                     },
                     'ui-web-app-reactjs': {
