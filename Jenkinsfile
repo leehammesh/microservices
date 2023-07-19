@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('SCM Checkout'){
             steps {
-            git branch: 'main', url: 'https:github.com/leehammesh/microservices.git
+            git branch: 'main', url: 'https:github.com/leehammesh/microservices.git'
             sh 'ls'
             }
         }
