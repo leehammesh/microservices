@@ -82,54 +82,54 @@ pipeline {
                     'ui-web-app-reactjs': {
                         dir('ui-web-app-reactjs'){
                             sh """
-                            docker build -t comdevops/ui:v1 .
-                            docker push comdevops/ui:v1
-                            docker rmi comdevops/ui:v1
+                            docker build -t leehammesh/ui:v1 .
+                            docker push leehammesh/ui:v1
+                            docker rmi leehammesh/ui:v1
                             """
                         }
                     },
                     'zuul-api-gateway' : {
                         dir('zuul-api-gateway'){
                             sh """
-                            docker build -t comdevops/api:v1 .
-                            docker push comdevops/api:v1
-                            docker rmi comdevops/api:v1
+                            docker build -t leehammesh/api:v1 .
+                            docker push leehammesh/api:v1
+                            docker rmi leehammesh/api:v1
                             """
                         }
                     },
                     'offers-microservice-spring-boot': {
                         dir('offers-microservice-spring-boot'){
                             sh """
-                            docker build -t comdevops/spring:v1 .
-                            docker push comdevops/spring:v1
-                            docker rmi comdevops/spring:v1
+                            docker build -t leehammesh/spring:v1 .
+                            docker push leehammesh/spring:v1
+                            docker rmi leehammesh/spring:v1
                             """
                         }
                     },
                     'shoes-microservice-spring-boot': {
                         dir('shoes-microservice-spring-boot'){
                             sh """
-                            docker build -t comdevops/spring:v2 .
-                            docker push comdevops/spring:v2
-                            docker rmi comdevops/spring:v2
+                            docker build -t leehammesh/spring:v2 .
+                            docker push leehammesh/spring:v2
+                            docker rmi leehammesh/spring:v2
                             """
                         }
                     },
                     'cart-microservice-nodejs': {
                         dir('cart-microservice-nodejs'){
                             sh """
-                            docker build -t comdevops/ui:v2 .
-                            docker push comdevops/ui:v2
-                            docker rmi comdevops/ui:v2
+                            docker build -t leehammesh/ui:v2 .
+                            docker push leehammesh/ui:v2
+                            docker rmi leehammesh/ui:v2
                             """
                         }
                     },
                     'wishlist-microservice-python': {
                         dir('wishlist-microservice-python'){
                             sh """
-                            docker build -t comdevops/python:v1 .
-                            docker push comdevops/python:v1
-                            docker rmi comdevops/python:v1
+                            docker build -t leehammesh/python:v1 .
+                            docker push leehammesh/python:v1
+                            docker rmi leehammesh/python:v1
                             """
                         }
                     }
@@ -141,7 +141,7 @@ pipeline {
                 parallel (
                     'deploy on k8s': {
                         script {
-                            withKubeCredentials(kubectlCredentials: [[ credentialsId: 'kubernetes', namespace: 'ms' ]]) {
+                            withKubeCredentials(kubectlCredentials: [[ credentialsId: 'kuber', namespace: 'ms' ]]) {
                                 sh 'kubectl get ns' 
                                 sh 'kubectl apply -f kubernetes/yamlfile'
                             }
