@@ -71,6 +71,25 @@ pipeline {
                 )
             }
         }
+        stage("Quality Gate") {
+            steps {
+                sleep(60)
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
+              }
+            }
+            post {
+        
+        failure {
+            echo 'sending email notification from jenkins'
+            
+                   step([$class: 'Mailer',
+                   notifyEveryUnstableBuild: true,
+                   recipients: emailextrecipients([[$class: 'CulpritsRecipientProvider'],
+                                      [$class: 'RequesterRecipientProvider']])])
+               }
+            }
+          }
         stage ('Build Docker Image and push'){
             steps {
                 parallel (
@@ -134,6 +153,11 @@ pipeline {
                         }
                     }
                 )
+            }
+        }
+        stage('Approval - Deploy on k8s') {
+            steps {
+                input 'Approve for EKS Deploy'
             }
         }
         stage ('Deploy on k8s'){
