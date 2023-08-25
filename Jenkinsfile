@@ -13,14 +13,14 @@ pipeline {
                     'node application': {
                         script {
                             dir('cart-microservice-nodejs') {
-                                def scannerHome = tool 'sonarscanner4'
-                                 withSonarQubeEnv('sonar-pro') {
+                                def scannerHome = tool 'sonar'
+                                 withSonarQubeEnv('sonar') {
                                      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=cart-nodejs"
                                  }
                             }
                             dir('ui-web-app-reactjs') {
-                                def scannerHome = tool 'sonarscanner4';
-                                withSonarQubeEnv('sonar-pro') {
+                                def scannerHome = tool 'sonar';
+                                withSonarQubeEnv('sonar') {
                                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ui-reactjs"
                                 }
                             }
@@ -30,19 +30,19 @@ pipeline {
                         script {
                             dir('offers-microservice-spring-boot') {
                                 def mvn = tool 'maven3';
-                                withSonarQubeEnv('sonar-pro') {
+                                withSonarQubeEnv('sonar') {
                                     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=offers-spring-boot -Dsonar.projectName=offers-spring-boot"
                                 }
                             }
                             dir('shoes-microservice-spring-boot') {
                                 def mvn = tool 'maven3';
-                                withSonarQubeEnv('sonar-pro') {
+                                withSonarQubeEnv('sonar') {
                                     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=shoe-spring-boot -Dsonar.projectName=shoes-spring-boot"
                                 }
                             }
                             dir('zuul-api-gateway') {
                                 def mvn = tool 'maven3';
-                                withSonarQubeEnv('sonar-pro') {
+                                withSonarQubeEnv('sonar') {
                                     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=zuul-api -Dsonar.projectName=zuul-api"
                                 }
                             }
@@ -51,9 +51,9 @@ pipeline {
                     'python app': {
                         script {
                             dir('wishlist-microservice-python') {
-                                def scannerHome = tool 'sonarscanner4'
-                                withSonarQubeEnv('sonar-pro') {
-                                    sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonarscanner4/bin/sonar-scanner \
+                                def scannerHome = tool 'sonar'
+                                withSonarQubeEnv('sonar') {
+                                    sh """/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner \
                                         -D sonar.projectVersion=1.0-SNAPSHOT \
                                         -D sonar.sources=. \
                                         -D sonar.login=admin \
