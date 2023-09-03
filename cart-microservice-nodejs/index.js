@@ -23,7 +23,7 @@ app.get("/welcome", (req, res) => {
     res.json({ message: "Welcome to the application." });
 });
 
-app.use('/api/v1', route)
+
 
 
 // set port, listen for requests
